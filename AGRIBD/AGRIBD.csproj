@@ -53,6 +53,12 @@
       <DependentUpon>Buscador.cs</DependentUpon>
     </Compile>
     <Compile Include="ClaseSQLSERVER.cs" />
+    <Compile Include="DetallesAsig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetallesAsig.Designer.cs">
+      <DependentUpon>DetallesAsig.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditarCult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="Buscador.resx">
       <DependentUpon>Buscador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetallesAsig.resx">
+      <DependentUpon>DetallesAsig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditarCult.resx">
       <DependentUpon>EditarCult.cs</DependentUpon>

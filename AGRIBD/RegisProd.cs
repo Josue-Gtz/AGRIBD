@@ -13,6 +13,7 @@ namespace AGRIBD
 {
     public partial class RegisCult : Form
     {
+        
         ClaseSQLSERVER SQLSERVER = new ClaseSQLSERVER();
         public RegisCult()
         {
@@ -42,15 +43,15 @@ namespace AGRIBD
             {
                 OcultarDataGrids();
                 // Ejecución del comando para insertar datos
-                string consultaSQL = "INSERT INTO Cultivos (id, nombre, cultivo, direccion) " +
+                string consultaSQL = "INSERT INTO Productores (id, nombre, email, direccion) " +
                                  "VALUES (" + textBox1.Text + ", '" + textBox2.Text + "', '" +
                                  textBox3.Text + "', '" + textBox4.Text + "')";
 
                 // Ejecución de la consulta usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Cultivos");
+                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
 
                 // Mostrar los resultados en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Cultivos");
+                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
                 this.Controls.Add(lbl);
                 this.Controls.Add(dgv);
                 dgv.Refresh();

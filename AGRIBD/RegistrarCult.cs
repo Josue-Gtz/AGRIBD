@@ -46,7 +46,7 @@ namespace AGRIBD
             {
                 OcultarDataGrids();
                 // Ejecución del comando para insertar datos
-                string consultaSQL = "INSERT INTO Cultivos (id, nombre, cultivo, direccion) " +
+                string consultaSQL = "INSERT INTO Cultivos (id, nombre, plantacion, tamaño) " +
                                  "VALUES (" + textBox1.Text + ", '" + textBox2.Text + "', '" +
                                  textBox3.Text + "', '" + textBox4.Text + "')";
 

@@ -33,7 +33,6 @@ namespace AGRIBD
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //boton
             try
             {
                 OcultarDataGrids();
@@ -45,7 +44,7 @@ namespace AGRIBD
                 }
 
                 // Construcción de la consulta SQL de actualización
-                string consultaSQL = "UPDATE Productor SET " +
+                string consultaSQL = "UPDATE Cultivos SET " +
                                      "nombre = '" + textBox2.Text + "', " +
                                      "plantacion = '" + textBox3.Text + "', " +
                                      "tamaño = '" + textBox4.Text + "' " +

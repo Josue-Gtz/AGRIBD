@@ -43,13 +43,13 @@ namespace AGRIBD
                 }
 
                 // Construcción de la consulta SQL para eliminar
-                string consultaSQL = "DELETE FROM Productor WHERE id = " + textBox1.Text;
+                string consultaSQL = "DELETE FROM Productores WHERE id = " + textBox1.Text;
 
                 // Ejecución del comando usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productor");
+                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
 
                 // Mostrar los datos restantes en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productor");
+                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
                 this.Controls.Add(lbl);
                 this.Controls.Add(dgv);
                 dgv.Refresh();

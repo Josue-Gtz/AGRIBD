@@ -17,6 +17,7 @@ namespace AGRIBD
         {
             InitializeComponent();
         }
+
         ClaseSQLSERVER SQLSERVER = new ClaseSQLSERVER();
         private void OcultarDataGrids()
         {
@@ -31,7 +32,6 @@ namespace AGRIBD
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            //boton
             try
             {
                 OcultarDataGrids();

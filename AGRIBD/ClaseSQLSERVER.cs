@@ -92,6 +92,7 @@ namespace AGRIBD
 
                     // Llenado del DataSet con los datos de la tabla
                     adp.Fill(ds, $"{NomTabla}");
+
                 }
             }
             catch (SqlException Ex)
@@ -120,6 +121,7 @@ namespace AGRIBD
                 Visible = true
             };
 
+
             // Creación de un nuevo Label para mostrar el nombre de la tabla
             Label lbl = new Label
             {
@@ -132,8 +134,29 @@ namespace AGRIBD
             // Retorno del Label y el DataGridView creados
             return (lbl, dgv);
         }
+        public DataSet EjecutarConsultaSelect(string consultaSQL, string nombreTabla)
+        {
+            DataSet ds = new DataSet();
 
-       
+            try
+            {
+                string strConn = $"Server={Servidor};Database={Basedatos};User Id={UsuarioId};Password={Password}";
+
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    conn.Open();
+                    SqlDataAdapter adp = new SqlDataAdapter(consultaSQL, conn);
+                    adp.Fill(ds, nombreTabla);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la consulta SELECT: " + ex.Message);
+            }
+
+            return ds;
+        }
+        // Ewe
 
 
 

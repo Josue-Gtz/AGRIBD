@@ -42,17 +42,17 @@ namespace AGRIBD
                 }
 
                 // Construcción de la consulta SQL de actualización
-                string consultaSQL = "UPDATE Productor SET " +
+                string consultaSQL = "UPDATE Productores SET " +
                                      "nombre = '" + textBox2.Text + "', " +
-                                     "cultivo = '" + textBox3.Text + "', " +
+                                     "email = '" + textBox3.Text + "', " +
                                      "direccion = '" + textBox4.Text + "' " +
                                      "WHERE id = " + textBox1.Text;
 
                 // Ejecución del comando usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productor");
+                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
 
                 // Mostrar resultados actualizados
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productor");
+                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
                 this.Controls.Add(lbl);
                 this.Controls.Add(dgv);
                 dgv.Refresh();
