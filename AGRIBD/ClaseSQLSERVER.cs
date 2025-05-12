@@ -156,6 +156,17 @@ namespace AGRIBD
 
             return ds;
         }
+        public int ObtenerCantidad(string consulta)
+        {
+            string strConn = $"Server={Servidor};Database={Basedatos};User Id={UsuarioId};Password={Password}";
+
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand comando = new SqlCommand(consulta, conn);
+                conn.Open();
+                return (int)comando.ExecuteScalar();
+            }
+        }
         // Ewe
 
 
