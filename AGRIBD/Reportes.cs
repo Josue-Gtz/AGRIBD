@@ -63,5 +63,20 @@ namespace AGRIBD
 
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+
+
+            }
+            else
+            {
+                e.KeyChar = (char)0;
+                MessageBox.Show("Solo numeros");
+
+            }
+        }
     }
 }

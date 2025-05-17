@@ -34,6 +34,7 @@ namespace AGRIBD
         {
             try
             {
+                
                 OcultarDataGrids();
 
                 if (string.IsNullOrWhiteSpace(textBox1.Text))
@@ -47,12 +48,15 @@ namespace AGRIBD
 
                 // Ejecución del comando usando EjecutarComandos
                 var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Cultivos");
+                    MessageBox.Show("Cultivo Eliminado");
 
-                // Mostrar los datos restantes en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Cultivos");
+                    // Mostrar los datos restantes en el DataGridView
+                    var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Cultivos");
                 this.Controls.Add(lbl);
                 this.Controls.Add(dgv);
                 dgv.Refresh();
+                
+                
             }
             catch (SqlException ex)
             {
@@ -82,6 +86,21 @@ namespace AGRIBD
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+
+
+            }
+            else
+            {
+                e.KeyChar = (char)0;
+                MessageBox.Show("Solo numeros");
+
+            }
         }
     }
 }

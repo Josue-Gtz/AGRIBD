@@ -34,25 +34,28 @@ namespace AGRIBD
         {
             try
             {
-                OcultarDataGrids();
+                
+                    OcultarDataGrids();
 
-                if (string.IsNullOrWhiteSpace(textBox1.Text))
-                {
-                    MessageBox.Show("Ingrese el ID del Productor a eliminar.");
-                    return;
-                }
+                    if (string.IsNullOrWhiteSpace(textBox1.Text))
+                    {
+                        MessageBox.Show("Ingrese el ID del Productor a eliminar.");
+                        return;
+                    }
 
-                // Construcción de la consulta SQL para eliminar
-                string consultaSQL = "DELETE FROM Productores WHERE id = " + textBox1.Text;
+                    // Construcción de la consulta SQL para eliminar
+                    string consultaSQL = "DELETE FROM Productores WHERE id = " + textBox1.Text;
+                    // Ejecución del comando usando EjecutarComandos
+                    var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
+                    MessageBox.Show("Productor Eliminado");
 
-                // Ejecución del comando usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
-
-                // Mostrar los datos restantes en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
-                this.Controls.Add(lbl);
-                this.Controls.Add(dgv);
-                dgv.Refresh();
+                    // Mostrar los datos restantes en el DataGridView
+                    var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
+                    this.Controls.Add(lbl);
+                    this.Controls.Add(dgv);
+                    dgv.Refresh();
+                
+                
             }
             catch (SqlException ex)
             {
@@ -61,6 +64,21 @@ namespace AGRIBD
             catch (Exception ex)
             {
                 MessageBox.Show("Error en el sistema: " + ex.Message);
+            }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+
+
+            }
+            else
+            {
+                e.KeyChar = (char)0;
+                MessageBox.Show("Solo numeros");
+
             }
         }
     }

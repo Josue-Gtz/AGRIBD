@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AGRIBD
 {
@@ -41,20 +42,28 @@ namespace AGRIBD
             //Boton para añadir
             try
             {
-                OcultarDataGrids();
-                // Ejecución del comando para insertar datos
-                string consultaSQL = "INSERT INTO Productores (id, nombre, email, direccion) " +
-                                 "VALUES (" + textBox1.Text + ", '" + textBox2.Text + "', '" +
-                                 textBox3.Text + "', '" + textBox4.Text + "')";
+                if (string.IsNullOrWhiteSpace(textBox2.Text) && (string.IsNullOrWhiteSpace(textBox3.Text)) && (string.IsNullOrWhiteSpace(textBox4.Text)))
+                {
+                    OcultarDataGrids();
+                    // Ejecución del comando para insertar datos
+                    string consultaSQL = "INSERT INTO Productores (nombre, email, direccion) " +
+                                     "VALUES ('" + textBox2.Text + "', '" +
+                                     textBox3.Text + "', '" + textBox4.Text + "')";
 
-                // Ejecución de la consulta usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
+                    // Ejecución de la consulta usando EjecutarComandos
+                    var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Productores");
 
-                // Mostrar los resultados en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
-                this.Controls.Add(lbl);
-                this.Controls.Add(dgv);
-                dgv.Refresh();
+                    // Mostrar los resultados en el DataGridView
+                    var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Productores");
+                    this.Controls.Add(lbl);
+                    this.Controls.Add(dgv);
+                    dgv.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Todos los espacios deben estar llenos");
+                }
+            
             }
             catch (SqlException Ex)
             {

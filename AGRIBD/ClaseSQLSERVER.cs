@@ -108,6 +108,8 @@ namespace AGRIBD
             return ds;
         }
 
+        
+
         public (Label, DataGridView) CrearYMostrarDataGridView(DataSet ds, string nombreTabla)
         {
             // Creación de un nuevo DataGridView
@@ -115,7 +117,7 @@ namespace AGRIBD
             {
                 DataSource = ds.Tables[0],
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                Location = new Point(10, 325),
+                Location = new Point(10, 225),
                 Size = new Size(800, 200),
                 Name = "dgv" + nombreTabla,
                 Visible = true
@@ -134,6 +136,11 @@ namespace AGRIBD
             // Retorno del Label y el DataGridView creados
             return (lbl, dgv);
         }
+
+
+
+
+
         public DataSet EjecutarConsultaSelect(string consultaSQL, string nombreTabla)
         {
             DataSet ds = new DataSet();
@@ -167,10 +174,6 @@ namespace AGRIBD
                 return (int)comando.ExecuteScalar();
             }
         }
-        // Ewe
-
-
-
     }
 }
 

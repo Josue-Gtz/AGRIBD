@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AGRIBD
 {
@@ -41,23 +42,27 @@ namespace AGRIBD
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            //Boton para que se añada
             try
             {
-                OcultarDataGrids();
-                // Ejecución del comando para insertar datos
-                string consultaSQL = "INSERT INTO Cultivos (id, nombre, plantacion, tamaño) " +
-                                 "VALUES (" + textBox1.Text + ", '" + textBox2.Text + "', '" +
-                                 textBox3.Text + "', '" + textBox4.Text + "')";
+                if (!string.IsNullOrWhiteSpace(textBox2.Text) && (!string.IsNullOrWhiteSpace(textBox3.Text)) && (!string.IsNullOrWhiteSpace(textBox4.Text)))
+                {
+                    OcultarDataGrids();
+                    string consultaSQL = "INSERT INTO Cultivos (nombre, plantacion, tamaño) " +
+                                     "VALUES ('" + textBox2.Text + "', '" +
+                                     textBox3.Text + "', '" + textBox4.Text + "')";
 
-                // Ejecución de la consulta usando EjecutarComandos
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Cultivos");
+                    var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, "Cultivos");
 
-                // Mostrar los resultados en el DataGridView
-                var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Cultivos");
-                this.Controls.Add(lbl);
-                this.Controls.Add(dgv);
-                dgv.Refresh();
+                    var (lbl, dgv) = SQLSERVER.CrearYMostrarDataGridView(ds, "Cultivos");
+                    this.Controls.Add(lbl);
+                    this.Controls.Add(dgv);
+                    dgv.Refresh();
+                    MessageBox.Show("Cultivo registrado");
+                }
+                else
+                {
+                    MessageBox.Show("Todos los espacios deben estar llenos");
+                }
             }
             catch (SqlException Ex)
             {
@@ -67,6 +72,23 @@ namespace AGRIBD
             {
                 MessageBox.Show("Error en el sistema: " + Ex.Message);
             }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+               
+
+            }
+            else
+            {
+                e.KeyChar = (char)0;
+                MessageBox.Show("Solo numeros");
+
+            }
+
+
         }
 
         private void label5_Click(object sender, EventArgs e)

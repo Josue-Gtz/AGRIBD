@@ -37,76 +37,69 @@ namespace AGRIBD
         {
             try
             {
-                OcultarDataGrids();
+                if (!string.IsNullOrWhiteSpace(textbox1.Text))
+                {
+                    // Ejecución del comando para buscar datos
+                    var (ds, comando) = SQLSERVER.EjecutarComandos($"SELECT * FROM Productores WHERE Nombre = '{textbox1.Text}'", "Productores");
+                    SqlDataReader reader = comando.ExecuteReader();
 
-                string consultaSQL = "";
-                string nombreTabla = "";
+                    if (reader.Read())
+                    {
+                        DataRow row = ds.Tables["Productores"].Rows[0];
+                        textBox3.Text = row["Id"].ToString();
+                        textBox4.Text = row["Email"].ToString();
+                        textBox5.Text = row["Direccion"].ToString();
+                        MessageBox.Show("Productor encontrado");
 
-                // Verifica si se ingresó el ID de Cultivo
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Productor no encontrado");
+                    }
+                    
+                }
                 if (!string.IsNullOrWhiteSpace(textBox2.Text))
                 {
-                    consultaSQL = $"SELECT * FROM Cultivos WHERE Id = {textBox2.Text}";
-                    nombreTabla = "Cultivos";
-                }
-                // Verifica si se ingresó el ID de Productor
-                else if (!string.IsNullOrWhiteSpace(textBox1.Text))
-                {
-                    consultaSQL = $"SELECT * FROM Productores WHERE Id = {textBox1.Text}";
-                    nombreTabla = "Productores";
-                }
-                else
-                {
-                    MessageBox.Show("Debe ingresar el ID de un Cultivo o un Productor.");
-                    return;
-                }
+                    OcultarDataGrids();
+                    // Ejecución del comando para buscar datos
+                    var (ds, comando) = SQLSERVER.EjecutarComandos($"SELECT * FROM Cultivos WHERE Nombre = '{textBox2.Text}'", "Cultivos");
+                    SqlDataReader reader = comando.ExecuteReader();
 
-                // Ejecutar la consulta
-                var (ds, comando) = SQLSERVER.EjecutarComandos(consultaSQL, nombreTabla);
-
-                // Validar si hay datos
-                if (ds != null && ds.Tables[0].Rows.Count > 0)
-                {
-                    // Usar BindingSource para llenar el DataGridView
-                    BindingSource bindingSource = new BindingSource();
-                    bindingSource.DataSource = ds.Tables[0];
-
-                    // Crear y mostrar el DataGridView
-                    DataGridView dgv = new DataGridView
+                    if (reader.Read())
                     {
-                        DataSource = bindingSource,
-                        Dock = DockStyle.Fill // Ajustar el tamaño del DataGridView
-                    };
+                        DataRow row = ds.Tables["Cultivos"].Rows[0];
+                        textBox6.Text = row["Id"].ToString();
+                        textBox7.Text = row["Plantacion"].ToString();
+                        textBox8.Text = row["Tamaño"].ToString();
+                        MessageBox.Show("Productor encontrado");
 
-                    // Opcional: Agregar filtros en el BindingSource si es necesario
-                    // Aquí puedes hacer algún filtrado si se requiere
-                    // Ejemplo de filtro:
-                    // bindingSource.Filter = "Nombre LIKE '%algún valor%'";
 
-                    // Crear el Label
-                    Label lbl = new Label
+                    }
+                    else
                     {
-                        Text = nombreTabla,
-                        Dock = DockStyle.Top
-                    };
+                        MessageBox.Show("Cultivo no encontrado.");
+                    }
 
-                    // Agregar los controles al formulario
-                    this.Controls.Add(lbl);
-                    this.Controls.Add(dgv);
-                    dgv.Refresh();
+
                 }
-                else
+                else if (!string.IsNullOrWhiteSpace(textbox1.Text) && !string.IsNullOrWhiteSpace(textBox2.Text))
                 {
-                    MessageBox.Show("No se encontró ningún registro con ese ID.");
+                    {
+                        MessageBox.Show("Ingrese algun nombre");
+                    }
                 }
+
             }
-            catch (SqlException ex)
+            catch (SqlException Ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(Ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception Ex)
             {
-                MessageBox.Show("Error en el sistema: " + ex.Message);
+                MessageBox.Show("Error en el sistema: " + Ex.Message);
             }
         }
     }
+
 }
